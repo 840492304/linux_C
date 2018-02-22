@@ -13,10 +13,12 @@
 
 #include <stdio.h>
 #include <dirent.h>
+#include <sys/stat.h>
 
 void my_ls(char []);
 
 void main(int ac, char * av[]){
+
 
 
     char * dirName;
@@ -58,7 +60,8 @@ void my_ls(char dirName[]){
 
     while((_dirent_ptr = readdir(dirPtr)) != NULL){
 
-        printf("%s   \n", _dirent_ptr->d_name);
+        printf("%d  %s   \n", _dirent_ptr->d_seekoff, _dirent_ptr->d_name);
+
     }
 
 
