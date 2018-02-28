@@ -23,6 +23,9 @@ void main(){
 void  wakeUpHandle(int var){
 
 
+    /**
+     * 这里的var将会是闹钟信号的宏定义
+     */
     printf("%d\n", var);
 
 }
