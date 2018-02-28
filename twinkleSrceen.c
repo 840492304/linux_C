@@ -4,7 +4,10 @@
 //
 
 #include <curses.h>
+#include <zconf.h>
+#include <tclDecls.h>
 
+void sleep_ms(unsigned int secs);
 
 int main(){
 
@@ -24,11 +27,32 @@ int main(){
         if (i % 2 == 1) {
             standend();
         }
+        refresh();
+        Tcl_Sleep(100);
+       // sleep_ms(10);
+        move(i, i * 2);
+
+        addstr("             ");
+
 
     }
-    refresh();
 
     getch();
     endwin();
+
+}
+
+
+void sleep_ms(unsigned int secs)
+
+{
+
+    struct timeval tval;
+
+    tval.tv_sec=secs/1000;
+
+    tval.tv_usec=secs%1000;
+
+    select(0,NULL,NULL,NULL,&tval);
 
 }
