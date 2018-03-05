@@ -1,6 +1,10 @@
 //
 // Created by Wen on 2018/3/5.
 //
+/**
+ * 文件描述符属于进程的属性
+ *  fork exec时都会保留这些属性
+ */
 #include <stdio.h>
 #include <zconf.h>
 #include <stdlib.h>
