@@ -1,6 +1,11 @@
 //
 // Created by Wen on 2018/3/6.
 //
+
+/**
+ * pipe是阻塞型的，   跟golang的无缓冲的管道 是一样的
+ */
+
 #include <zconf.h>
 #include <stdio.h>
 #include <string.h>
