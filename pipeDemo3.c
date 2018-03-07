@@ -15,12 +15,14 @@
 #include <stdio.h>
 #include <zconf.h>
 #include <stdlib.h>
+#include <string.h>
 
 
 #define oops(m, n) {perror(m); exit(n);}
 
 int main(int ac, char *av[]) {
 
+    char *s = "who\n";
     int  pi[2], pid;
 
     if (ac != 3) {
@@ -46,8 +48,9 @@ int main(int ac, char *av[]) {
 
         dup2(pi[0], STDIN_FILENO);
         close(pi[0]);
-        close(pi[1]);
+        close(pi[1]); //如果有两个读端会错误？  https://www.cnblogs.com/whiteHome/p/4863516.html
 
+     //   write(pi[1], s, strlen(s));
         /**
          * 现在只有万事俱备了
          */
@@ -70,3 +73,10 @@ int main(int ac, char *av[]) {
 
     return 0;
 }
+
+
+//int handle(int action){
+//
+//
+//
+//}
