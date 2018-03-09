@@ -13,6 +13,7 @@
 #define oops(m, n) {perror(m); exit(n);}
 #define BUFFSIZE 255
 
+#define SOCETPORT 12002
 /**
  * rls socket实现ls 的客户端
  * @param ac
@@ -35,21 +36,21 @@ int main(int ac, char *av[]) {
         oops("参数输入错误", 2);
     }
 
-
     if ((socket_id = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
         oops("socket创建失败", 1);
     };
 
-    if ((hp = gethostbyname(av[1])) == NULL) {
+    if ((hp = gethostbyname("wen.com")) == NULL) {
         oops("获取IP地址失败", 3);
     }
 
     bzero((void *)&serveraddr_t, sizeof(serveraddr_t));
 
-    bcopy((void *) hp->h_addr_list, (void *) & serveraddr_t.sin_addr, sizeof(hp->h_addr_list));
+    bcopy((void *) hp->h_addr, (void *) & serveraddr_t.sin_addr, sizeof(hp->h_addr_list));
 
     serveraddr_t.sin_family = AF_INET;
-    serveraddr_t.sin_port   = htons(12000);
+    serveraddr_t.sin_port   = htons(SOCETPORT);
+
 
     if ((connect(socket_id, (struct sockaddr *) &serveraddr_t, sizeof(serveraddr_t))) == -1) {
         oops("socket连接失败", 4);
@@ -76,9 +77,22 @@ int main(int ac, char *av[]) {
 
     while( (receive_num =  read(socket_id, buf, BUFFSIZE)) > 0){
 
-        write(1, buf, receive_num);
+        if (write(1, buf, receive_num) == -1) {
 
+            oops("打印失败", 5);
+        }
     }
+
+    /**
+   * 读取失败
+   */
+    if(read(socket_id, buf, BUFFSIZE) == -1){
+
+        oops("未获取到数据", 3);
+    }
+
+    write(1, buf, strlen(buf));
+
 
     close(socket_id);
 
