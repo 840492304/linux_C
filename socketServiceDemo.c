@@ -97,7 +97,9 @@ int main(int ac, char *av[]) {
          */
         accept_fd = accept(socket_id, NULL, NULL);
 
-        printf("嘿嘿，我接收到了");
+        char str[] = "嘿嘿我接收到了";
+
+        write(1, str, strlen(str))
 
         if (accept_fd == -1) {
             oops("接受出错", 3);

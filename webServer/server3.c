@@ -190,9 +190,9 @@ void do_cat(char *arg, int fd) {
 
     if (fpfile != NULL && fpsocket != NULL) {
 
-        header(fpsocket, content);
+        set_head(fpsocket, content);
 
-        header(fpsocket, "\r\n");
+        set_head(fpsocket, "\r\n");
 
         while ((c = getc(fpfile) != NULL)){
 
@@ -242,7 +242,7 @@ char * file_type(char * str){
 }
 
 
-void header(FILE * fp, char * content){
+void set_head(FILE *fp, char *content){
 
     fprintf(fp, "HTTP/1.0 200 OK\r\n");
 
@@ -258,7 +258,7 @@ void do_ls(int fd, char *dirname) {
 
     fp = fdopen(fd, "w");
 
-    header(fp, "text/plain");
+    set_head(fp, "text/plain");
 
     fprintf(fp, "\r\n");
 

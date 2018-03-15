@@ -2,6 +2,11 @@
 // Created by Wen on 2018/3/12.
 //
 
+/**
+ * 代理方式
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
@@ -36,14 +41,12 @@ int main(int ac, char *av[]) {
             exit(1);
         }
 
-
         write(client_fd, "now Time is :", strlen("now Time is :"));
 
         response_handle(client_fd);
 
         close(client_fd);
     }
-
 
     return 0;
 }

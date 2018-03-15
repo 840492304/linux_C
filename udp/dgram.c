@@ -18,6 +18,7 @@
 int make_server_addr(int port, struct sockaddr_in * saddr){
 
     struct hostent *hp;
+
     hp = gethostbyname(WEB_NAME);
     bzero((void *) saddr, sizeof(saddr));
 
@@ -26,7 +27,7 @@ int make_server_addr(int port, struct sockaddr_in * saddr){
     bcopy((void *) hp->h_addr, (void *) &saddr->sin_addr, hp->h_length);
 
     saddr->sin_port   = htons(port);
-    saddr->sin_family = PF_INET;
+    saddr->sin_family = AF_INET;
 
     return 0;
 }

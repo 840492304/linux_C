@@ -7,14 +7,13 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+#include "dgram.h"
+
 #define oops(m, n) {perror(m); exit(n);}
 #define BUFFSIZE 1024
 
-int make_server_addr(int port, struct sockaddr_sin * saddr);
-int make_server_udp(int port);
-int make_client_udp(int port);
-int get_internet_address(char * host, int len, int * prot_p, struct sockaddr_in * saddr_in);
-void print_client(struct sockaddr_in  * saddr);
+
+
 int main(int ac, char *av[]) {
 
     int port , addr_len;
@@ -34,19 +33,33 @@ int main(int ac, char *av[]) {
 
     socket_id = make_server_udp(port);
 
-    addr_len = sizeof(addr_len);
+   // make_server_addr(port, &saddr_in);
 
-    while((receve_num = recvfrom(socket_id, buf, BUFFSIZE, 0, (struct sockaddr *) &saddr_in,  addr_len)) > 0){
+    addr_len = sizeof(saddr_in);
 
-        buf[receve_num] = '\0';
 
-        printf("接收到数据为:%s", buf);
+    while (1) {
 
-        print_client(&saddr_in);
+
+        if((receve_num = recvfrom(socket_id, buf, BUFFSIZE, 0,  &saddr_in,  &addr_len)) > 0){
+
+
+            printf("-----接受----");
+
+            buf[receve_num] = '\0';
+
+            printf("接收到数据为:%s", buf);
+
+            print_client(&saddr_in);
+
+        }
+
 
     }
 
 
+
+    printf("结束");
 
     return 0;
 }
