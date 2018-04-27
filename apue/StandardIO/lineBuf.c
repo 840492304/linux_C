@@ -20,7 +20,7 @@ int main(int ac, char *av[]) {
      */
    // if (setvbuf(fp_a, NULL, _IONBF, NULL) != 0) {
   //  if (setvbuf(fp_a, buf, _IOLBF, 1024) != 0) {
-    if (setvbuf(fp_a, buf, _IOFBF, 1024) != 0) {
+    if (setvbuf(fp_a, buf, _IOLBF, 1024) != 0) {
 
         printf("fp_a设置"
                        "缓冲错误");
